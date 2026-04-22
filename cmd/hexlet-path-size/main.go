@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 
@@ -10,8 +11,28 @@ import (
 
 func main() {
 	cmd := &cli.Command{
-		Name:  "hexlet-path-size",
-		Usage: "print size of a file or directory",
+		Name:      "hexlet-path-size",
+		Usage:     "print size of a file or directory",
+		UsageText: "hexlet-path-size [options] <path>",
+		Arguments: []cli.Argument{
+			&cli.StringArg{
+				Name:      "path",
+				UsageText: "path to file or dir",
+			},
+		},
+		Action: func(ctx context.Context, c *cli.Command) error {
+			path := c.StringArg("path")
+			if path != "" {
+				size, err := GetPathSize(path)
+				if err != nil {
+					return err
+				}
+				fmt.Printf("%dB\t%s", size, path)
+			} else {
+				cli.ShowAppHelp(c)
+			}
+			return nil
+		},
 	}
 	err := cmd.Run(context.Background(), os.Args)
 	if err != nil {
