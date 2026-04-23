@@ -29,7 +29,10 @@ func main() {
 				}
 				fmt.Printf("%dB\t%s", size, path)
 			} else {
-				cli.ShowAppHelp(c)
+				err := cli.ShowAppHelp(c)
+				if err != nil {
+					return err
+				}
 			}
 			return nil
 		},
