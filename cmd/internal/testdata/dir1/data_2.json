@@ -1,0 +1,18 @@
+{
+    "total_count": 150,
+    "events": [
+      {
+        "timestamp": "2023-10-27T10:15:00Z",
+        "level": "INFO",
+        "message": "User logged in",
+        "source": "auth-service"
+      },
+      {
+        "timestamp": "2023-10-27T10:17:32Z",
+        "level": "ERROR",
+        "message": "Database connection timeout",
+        "source": "db-cluster-01"
+      }
+    ]
+  }
+  

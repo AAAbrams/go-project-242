@@ -1,6 +1,7 @@
 package main
 
 import (
+	"code/cmd/internal"
 	"context"
 	"fmt"
 	"log"
@@ -23,7 +24,7 @@ func main() {
 		Action: func(ctx context.Context, c *cli.Command) error {
 			path := c.StringArg("path")
 			if path != "" {
-				size, err := GetPathSize(path)
+				size, err := internal.GetPathSize(path)
 				if err != nil {
 					return err
 				}

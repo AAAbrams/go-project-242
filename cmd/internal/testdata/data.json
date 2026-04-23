@@ -1,0 +1,18 @@
+{
+    "user_id": "uuid-9876-5432",
+    "username": "alex_dev",
+    "status": "active",
+    "profile": {
+      "first_name": "Alix",
+      "last_name": "Dev",
+      "contacts": {
+        "email": "alex@example.com",
+        "phone": "+7-900-123-45-67"
+      }
+    },
+    "settings": {
+      "theme": "dark",
+      "notifications": true
+    }
+  }
+  
