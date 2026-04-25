@@ -15,6 +15,13 @@ func main() {
 		Name:      "hexlet-path-size",
 		Usage:     "print size of a file or directory",
 		UsageText: "hexlet-path-size [options] <path>",
+		Flags: []cli.Flag{
+			&cli.BoolFlag{
+				Name:    "human",
+				Aliases: []string{"H"},
+				Usage:   "human-readable sizes (auto-select unit)",
+			},
+		},
 		Arguments: []cli.Argument{
 			&cli.StringArg{
 				Name:      "path",
@@ -23,12 +30,15 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			path := c.StringArg("path")
+			isH := c.Bool("human")
+
 			if path != "" {
 				size, err := internal.GetPathSize(path)
 				if err != nil {
 					return err
 				}
-				fmt.Printf("%dB\t%s", size, path)
+				output := internal.OutputFmt(size, path, isH)
+				fmt.Print(output)
 			} else {
 				err := cli.ShowAppHelp(c)
 				if err != nil {

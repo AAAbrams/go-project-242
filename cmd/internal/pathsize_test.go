@@ -1,10 +1,8 @@
 package internal
 
-import (
-	"testing"
-)
+import "testing"
 
-type test struct {
+type testSize struct {
 	name         string
 	path         string
 	expectedSize int64
@@ -12,7 +10,7 @@ type test struct {
 }
 
 func TestGetPathSize(t *testing.T) {
-	tests := []test{
+	tests := []testSize{
 		{
 			name:         "Empty file",
 			path:         "testdata/empty.json",
