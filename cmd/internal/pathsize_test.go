@@ -7,6 +7,7 @@ type testSize struct {
 	path         string
 	expectedSize int64
 	all          bool
+	recursive    bool
 	hasError     bool
 }
 
@@ -37,10 +38,25 @@ func TestGetPathSize(t *testing.T) {
 			hasError:     false,
 		},
 		{
-			name:         "Dir with all files (include hidden)",
+			name:         "Dir include hidden files",
 			path:         "testdata/dir1",
 			expectedSize: 872,
 			all:          true,
+			hasError:     false,
+		},
+		{
+			name:         "Scan dir recursive",
+			path:         "testdata",
+			expectedSize: 1007,
+			recursive:    true,
+			hasError:     false,
+		},
+		{
+			name:         "Scan dir recursive include hidden files",
+			path:         "testdata",
+			expectedSize: 1219,
+			all:          true,
+			recursive:    true,
 			hasError:     false,
 		},
 		{
@@ -52,7 +68,7 @@ func TestGetPathSize(t *testing.T) {
 	}
 	for _, tf := range tests {
 		t.Run(tf.name, func(t *testing.T) {
-			size, err := GetPathSize(tf.path, tf.all)
+			size, err := GetPathSize(tf.path, tf.all, tf.recursive)
 
 			if (err != nil) != tf.hasError {
 				t.Errorf("Failed: %v", err)

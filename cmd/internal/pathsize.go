@@ -2,10 +2,11 @@ package internal
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 )
 
-func GetPathSize(path string, withHidden bool) (int64, error) {
+func GetPathSize(path string, withHidden, recursive bool) (int64, error) {
 	var s = int64(0)
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -20,7 +21,21 @@ func GetPathSize(path string, withHidden bool) (int64, error) {
 
 		for _, entry := range entries {
 			info, err := entry.Info()
-			if err != nil && info.IsDir() {
+			if err != nil {
+				continue
+			}
+
+			if recursive && info.IsDir() {
+				iPath := filepath.Join(path, info.Name())
+				iSize, iErr := GetPathSize(iPath, withHidden, recursive)
+				if iErr != nil {
+					continue
+				}
+				s += iSize
+				continue
+			}
+
+			if !recursive && info.IsDir() {
 				continue
 			}
 

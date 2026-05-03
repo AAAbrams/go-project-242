@@ -17,6 +17,11 @@ func main() {
 		UsageText: "hexlet-path-size [options] <path>",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
+				Name:    "recursive",
+				Aliases: []string{"r"},
+				Usage:   "recursive size of directories",
+			},
+			&cli.BoolFlag{
 				Name:    "human",
 				Aliases: []string{"H"},
 				Usage:   "human-readable sizes (auto-select unit)",
@@ -37,9 +42,10 @@ func main() {
 			path := c.StringArg("path")
 			humanView := c.Bool("human")
 			scanAll := c.Bool("all")
+			scanRecursive := c.Bool("recursive")
 
 			if path != "" {
-				size, err := internal.GetPathSize(path, scanAll)
+				size, err := internal.GetPathSize(path, scanAll, scanRecursive)
 				if err != nil {
 					return err
 				}
