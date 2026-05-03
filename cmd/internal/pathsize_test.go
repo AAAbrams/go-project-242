@@ -6,21 +6,22 @@ type testSize struct {
 	name         string
 	path         string
 	expectedSize int64
+	all          bool
 	hasError     bool
 }
 
 func TestGetPathSize(t *testing.T) {
 	tests := []testSize{
 		{
-			name:         "Empty file",
-			path:         "testdata/empty.json",
-			expectedSize: 0,
-			hasError:     false,
-		},
-		{
 			name:         "With data file",
 			path:         "testdata/data.json",
 			expectedSize: 347,
+			hasError:     false,
+		},
+		{
+			name:         "Empty file",
+			path:         "testdata/empty.json",
+			expectedSize: 0,
 			hasError:     false,
 		},
 		{
@@ -36,6 +37,13 @@ func TestGetPathSize(t *testing.T) {
 			hasError:     false,
 		},
 		{
+			name:         "Dir with all files (include hidden)",
+			path:         "testdata/dir1",
+			expectedSize: 872,
+			all:          true,
+			hasError:     false,
+		},
+		{
 			name:         "Missing dir",
 			path:         "testdata/missingdir",
 			expectedSize: 0,
@@ -44,7 +52,7 @@ func TestGetPathSize(t *testing.T) {
 	}
 	for _, tf := range tests {
 		t.Run(tf.name, func(t *testing.T) {
-			size, err := GetPathSize(tf.path)
+			size, err := GetPathSize(tf.path, tf.all)
 
 			if (err != nil) != tf.hasError {
 				t.Errorf("Failed: %v", err)

@@ -1,0 +1,12 @@
+{
+    "app_name": "TestFactory",
+    "version": "2.5.0",
+    "max_retries": 1,
+    "features": {
+      "beta_access": false,
+      "legacy_support": null
+    },
+    "endpoints": [
+      "https://test.com"
+    ]
+}

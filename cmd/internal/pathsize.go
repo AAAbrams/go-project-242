@@ -2,9 +2,10 @@ package internal
 
 import (
 	"os"
+	"strings"
 )
 
-func GetPathSize(path string) (int64, error) {
+func GetPathSize(path string, withHidden bool) (int64, error) {
 	var s = int64(0)
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -19,9 +20,15 @@ func GetPathSize(path string) (int64, error) {
 
 		for _, entry := range entries {
 			info, err := entry.Info()
-			if err == nil && !info.IsDir() {
-				s += info.Size()
+			if err != nil && info.IsDir() {
+				continue
 			}
+
+			if !withHidden && strings.HasPrefix(info.Name(), ".") {
+				continue
+			}
+
+			s += info.Size()
 		}
 	} else {
 		s = fi.Size()
