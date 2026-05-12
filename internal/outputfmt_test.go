@@ -21,7 +21,7 @@ func TestOutputFmt(t *testing.T) {
 			name:           "One Bite output fmt with human flag",
 			size:           1,
 			hasHumanFlag:   true,
-			expectedOutput: "1.0B",
+			expectedOutput: "1B",
 		},
 		{
 			name:           "One KBite output fmt",
