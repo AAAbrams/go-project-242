@@ -64,7 +64,7 @@ const (
 
 func OutputFmt(size int64, human bool) string {
 	sl := "B"
-	if !human {
+	if !human || size < kb {
 		return fmt.Sprintf("%d"+sl, size)
 	}
 
