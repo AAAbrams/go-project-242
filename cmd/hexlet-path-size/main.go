@@ -1,7 +1,7 @@
 package main
 
 import (
-	"code/internal"
+	"code"
 	"context"
 	"fmt"
 	"log"
@@ -45,7 +45,7 @@ func main() {
 			recursive := c.Bool("recursive")
 
 			if path != "" {
-				output, err := internal.GetPathSize(path, recursive, human, all)
+				output, err := code.GetPathSize(path, recursive, human, all)
 				if err != nil {
 					return err
 				}

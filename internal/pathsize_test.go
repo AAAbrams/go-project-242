@@ -68,7 +68,7 @@ func TestGetPathSize(t *testing.T) {
 	}
 	for _, tf := range tests {
 		t.Run(tf.name, func(t *testing.T) {
-			size, err := resolvePathSize(tf.path, tf.recursive, tf.all)
+			size, err := ResolvePathSize(tf.path, tf.recursive, tf.all)
 
 			if (err != nil) != tf.hasError {
 				t.Errorf("Failed: %v", err)

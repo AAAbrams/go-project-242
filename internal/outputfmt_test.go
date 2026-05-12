@@ -48,7 +48,7 @@ func TestOutputFmt(t *testing.T) {
 
 	for _, to := range tests {
 		t.Run(to.name, func(t *testing.T) {
-			output := outputFmt(to.size, testPath, to.hasHumanFlag)
+			output := OutputFmt(to.size, testPath, to.hasHumanFlag)
 			if output != to.expectedOutput {
 				t.Errorf("Failed: expected output `%s`, but got `%s`", to.expectedOutput, output)
 			}

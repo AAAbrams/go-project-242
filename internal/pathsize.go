@@ -7,15 +7,7 @@ import (
 	"strings"
 )
 
-func GetPathSize(path string, recursive, human, all bool) (string, error) {
-	size, err := resolvePathSize(path, recursive, all)
-	if err != nil {
-		return "", err
-	}
-	return outputFmt(size, path, human), nil
-}
-
-func resolvePathSize(path string, recursive, all bool) (int64, error) {
+func ResolvePathSize(path string, recursive, all bool) (int64, error) {
 	var size = int64(0)
 	fileInfo, err := os.Lstat(path)
 	if err != nil {
@@ -42,7 +34,7 @@ func resolvePathSize(path string, recursive, all bool) (int64, error) {
 			if info.IsDir() {
 				if recursive {
 					internalPath := filepath.Join(path, info.Name())
-					internalSize, internalErr := resolvePathSize(internalPath, recursive, all)
+					internalSize, internalErr := ResolvePathSize(internalPath, recursive, all)
 					if internalErr != nil {
 						fmt.Fprintf(os.Stderr, "warning: cannot calculate size for %s: %v\n", internalPath, internalErr)
 						continue
@@ -70,7 +62,7 @@ const (
 	eb = pb * kb
 )
 
-func outputFmt(size int64, path string, human bool) string {
+func OutputFmt(size int64, path string, human bool) string {
 	sl := "B"
 	if !human {
 		return fmt.Sprintf("%d"+sl+"\t%s", size, path)
