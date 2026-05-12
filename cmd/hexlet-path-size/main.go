@@ -49,7 +49,7 @@ func main() {
 				if err != nil {
 					return err
 				}
-				fmt.Println(output)
+				fmt.Printf("%s\t"+path+"\n", output)
 			} else {
 				err := cli.ShowAppHelp(c)
 				if err != nil {

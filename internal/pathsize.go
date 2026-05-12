@@ -62,10 +62,10 @@ const (
 	eb = pb * kb
 )
 
-func OutputFmt(size int64, path string, human bool) string {
+func OutputFmt(size int64, human bool) string {
 	sl := "B"
 	if !human {
-		return fmt.Sprintf("%d"+sl+"\t%s", size, path)
+		return fmt.Sprintf("%d"+sl, size)
 	}
 
 	fs := float64(size)
@@ -90,6 +90,5 @@ func OutputFmt(size int64, path string, human bool) string {
 		fs /= eb
 	}
 
-	format := "%.1f" + sl + "\t%s"
-	return fmt.Sprintf(format, fs, path)
+	return fmt.Sprintf("%.1f"+sl, fs)
 }

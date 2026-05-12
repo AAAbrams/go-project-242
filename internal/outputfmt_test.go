@@ -9,46 +9,43 @@ type testFmt struct {
 	expectedOutput string
 }
 
-var testPath = "~/some.json"
-var expectedPathSfx = "\t" + testPath
-
 func TestOutputFmt(t *testing.T) {
 	tests := []testFmt{
 		{
 			name:           "One Bite output fmt",
 			size:           1,
 			hasHumanFlag:   false,
-			expectedOutput: "1B" + expectedPathSfx,
+			expectedOutput: "1B",
 		},
 		{
 			name:           "One Bite output fmt with human flag",
 			size:           1,
 			hasHumanFlag:   true,
-			expectedOutput: "1.0B" + expectedPathSfx,
+			expectedOutput: "1.0B",
 		},
 		{
 			name:           "One KBite output fmt",
 			size:           int64(kb),
 			hasHumanFlag:   false,
-			expectedOutput: "1024B" + expectedPathSfx,
+			expectedOutput: "1024B",
 		},
 		{
 			name:           "One KBite output fmt with human flag",
 			size:           int64(kb),
 			hasHumanFlag:   true,
-			expectedOutput: "1.0KB" + expectedPathSfx,
+			expectedOutput: "1.0KB",
 		},
 		{
 			name:           "Float MBite output fmt with human flag",
 			size:           int64(mb) + int64(kb)*200,
 			hasHumanFlag:   true,
-			expectedOutput: "1.2MB" + expectedPathSfx,
+			expectedOutput: "1.2MB",
 		},
 	}
 
 	for _, to := range tests {
 		t.Run(to.name, func(t *testing.T) {
-			output := OutputFmt(to.size, testPath, to.hasHumanFlag)
+			output := OutputFmt(to.size, to.hasHumanFlag)
 			if output != to.expectedOutput {
 				t.Errorf("Failed: expected output `%s`, but got `%s`", to.expectedOutput, output)
 			}

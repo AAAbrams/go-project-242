@@ -7,5 +7,5 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return internal.OutputFmt(size, path, human), nil
+	return internal.OutputFmt(size, human), nil
 }
