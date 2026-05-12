@@ -1,7 +1,7 @@
 package main
 
 import (
-	"code/cmd/internal"
+	"code/internal"
 	"context"
 	"fmt"
 	"log"
@@ -40,17 +40,16 @@ func main() {
 		},
 		Action: func(ctx context.Context, c *cli.Command) error {
 			path := c.StringArg("path")
-			humanView := c.Bool("human")
-			scanAll := c.Bool("all")
-			scanRecursive := c.Bool("recursive")
+			human := c.Bool("human")
+			all := c.Bool("all")
+			recursive := c.Bool("recursive")
 
 			if path != "" {
-				size, err := internal.GetPathSize(path, scanAll, scanRecursive)
+				output, err := internal.GetPathSize(path, recursive, human, all)
 				if err != nil {
 					return err
 				}
-				output := internal.OutputFmt(size, path, humanView)
-				fmt.Print(output)
+				fmt.Println(output)
 			} else {
 				err := cli.ShowAppHelp(c)
 				if err != nil {
